@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">FlashScoreApp</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="strWelcome">Flashscore\nGames</string>
+    <string name="strInfo">Esta aplicação foi desenvolvida no âmbito da unidade curricular Desenvolvimento para Dispositivos Movéis</string>
+    <string name="strChip1">Diana Parreira</string>
+    <string name="strChip2">Filipe Correia</string>
+    <string name="strChip3">José Silva</string>
+    <string name="strChip4">Luís Meneses</string>
+    <string name="strAuthors">Feito por:</string>
+</resources>
