@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-
     <TextView
         android:id="@+id/idTextViewWelcome"
         android:layout_width="match_parent"
@@ -36,7 +35,6 @@
         app:layout_constraintTop_toBottomOf="@id/idTextViewWelcome">
     </TextView>
 
-
     <TextView
         android:id="@+id/idTextViewAuthors"
         android:layout_marginTop="18dp"
@@ -51,9 +49,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/idTextViewInfo">
     </TextView>
-
-
-
 
     <com.google.android.material.chip.Chip
         android:id="@+id/idChip1"
@@ -95,7 +90,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/idChip3"/>
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

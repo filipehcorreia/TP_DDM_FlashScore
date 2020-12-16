@@ -17,7 +17,6 @@ import android.view.View;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
-
     private ActionBar toolbar;
 
     @Override
@@ -25,14 +24,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         toolbar = getSupportActionBar();
         toolbar.setTitle("Inicío");
 
         AddBottomNavigation();
-
     }
-
 
     private void AddBottomNavigation() {
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -54,19 +50,16 @@ public class MainActivity extends AppCompatActivity {
                         toolbar.setTitle("Informação");
                         fragment[0] = new info();
                         break;
-
                 }
                 final FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction.replace(R.id.fragment, fragment[0]).commit();
                 return true;
             }
         });
-
     }
 
 
     void init() {
-
 
     }
 
