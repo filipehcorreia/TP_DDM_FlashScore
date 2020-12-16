@@ -92,7 +92,7 @@ public class home extends Fragment {
 
             }//switch
         }//onClick
-    };//mChipClickListener
+    };//mCardClickListener
 
 
     @Override

@@ -1,5 +1,9 @@
 package com.ips.flashscoreapp;
+
 import android.os.AsyncTask;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -10,11 +14,33 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class DFJLHttp extends AsyncTask<String, Void, Void> {
 
+public class DFJLHttp extends AsyncTask<String, Void, JSONArray> {
+
+    public interface AsyncResponse {
+        void processFinish(JSONArray output) throws JSONException;
+
+    }
+
+
+    public AsyncResponse delegate = null;
+
+
+    public DFJLHttp(AsyncResponse delegate) {
+        this.delegate = delegate;
+    }
 
     @Override
-    protected Void doInBackground(String... strings) {
+    public void onPostExecute(JSONArray jsonArray) {
+        try {
+            delegate.processFinish(jsonArray);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public JSONArray doInBackground(String... strings) {
         URL url = null;
         try {
             url = new URL(strings[0]);
@@ -33,22 +59,21 @@ public class DFJLHttp extends AsyncTask<String, Void, Void> {
             BufferedReader reader = new BufferedReader(new InputStreamReader(in));
             StringBuilder result = new StringBuilder();
             String line;
-            while((line = reader.readLine()) != null) {
+            while ((line = reader.readLine()) != null) {
                 result.append(line);
             }
             System.out.println(result.toString());
 
+            JSONArray jsonArray = new JSONArray(result.toString());
 
-        } catch (IOException e) {
+            return jsonArray;
+
+
+        } catch (IOException | JSONException e) {
             e.printStackTrace();
         } finally {
             urlConnection.disconnect();
         }
-
-
-
-
-
 
         return null;
     }
