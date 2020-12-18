@@ -11,8 +11,11 @@ public class FutGames {
     public String aGoals;
     public String hGoals;
     public String game_link;
-  //  public ArrayList<FutInfo> game_info [];
+    public ArrayList<FutInfo> game_info =new ArrayList<FutInfo>();
 
+    public void setGame_info(FutInfo gameI) {
+        game_info.add(gameI);
+    }
 
     public FutGames(String game_time, String home_team, String away_team, String game_status, String aGoals, String hGoals, String game_link) {
         this.game_time = game_time;
@@ -22,5 +25,18 @@ public class FutGames {
         this.aGoals = aGoals;
         this.hGoals = hGoals;
         this.game_link = game_link;
+    }
+
+    @Override
+    public String toString() {
+        return "FutGames{" +
+                "game_time='" + game_time + '\'' +
+                ", home_team='" + home_team + '\'' +
+                ", away_team='" + away_team + '\'' +
+                ", game_status='" + game_status + '\'' +
+                ", hGoals='" + hGoals + '\'' +
+                ", aGoals='" + aGoals + '\'' +
+                ", game_link='" + game_link + '\'' +
+                '}';
     }
 }
