@@ -1,9 +1,13 @@
 package com.ips.flashscoreapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -15,7 +19,7 @@ import java.util.ArrayList;
 public class foot extends AppCompatActivity implements DFJLHttp.AsyncResponse {
 
     public ArrayList<FutLigas> oGames= new ArrayList<FutLigas>();
-
+private Menu menu;
     private ListView gamesView;
 
     @Override
@@ -23,7 +27,31 @@ public class foot extends AppCompatActivity implements DFJLHttp.AsyncResponse {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_foot);
 
-        new DFJLHttp(this).execute("http://192.168.1.12/get/getFutGames.php");
+        new DFJLHttp(this).execute("http://192.168.1.72:85/get/getFutGames.php");
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        this.menu=menu;
+        return super.onCreateOptionsMenu(menu);
+        
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        System.out.println(item.getItemId());
+
+        gamesView = (ListView) findViewById(R.id.listGames);
+ArrayList temp= new ArrayList();
+        temp.add(oGames.get(item.getItemId()));
+        ArrayAdapter<FutLigas> arrayAdapter =
+                new ArrayAdapter<FutLigas>(this,android.R.layout.simple_list_item_1, temp);
+        // Set The Adapter
+        gamesView.setAdapter(arrayAdapter);
+
+
+        return super.onOptionsItemSelected(item);
 
     }
 
@@ -33,6 +61,8 @@ public class foot extends AppCompatActivity implements DFJLHttp.AsyncResponse {
         for(int i=0 ; i<output.length();i++) {
             FutLigas tempLigas= new FutLigas( output.getJSONObject(i).getString("name"));
             oGames.add(tempLigas);
+
+            menu.add(Menu.NONE,i,Menu.NONE,tempLigas.name);
 
             JSONArray js = new JSONArray(output.getJSONObject(i).getString("games"));
             Log.v("abcde",  js.toString());
@@ -76,12 +106,7 @@ public class foot extends AppCompatActivity implements DFJLHttp.AsyncResponse {
 
         }
 
-        gamesView = (ListView) findViewById(R.id.listGames);
 
-        ArrayAdapter<FutLigas> arrayAdapter =
-                new ArrayAdapter<FutLigas>(this,android.R.layout.simple_list_item_1, oGames);
-        // Set The Adapter
-        gamesView.setAdapter(arrayAdapter);
 
         Log.v("abcdef",  oGames.toString());
     }
