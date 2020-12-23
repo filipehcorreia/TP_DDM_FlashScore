@@ -34,9 +34,10 @@ public class FutGames {
                 ", home_team='" + home_team + '\'' +
                 ", away_team='" + away_team + '\'' +
                 ", game_status='" + game_status + '\'' +
-                ", hGoals='" + hGoals + '\'' +
                 ", aGoals='" + aGoals + '\'' +
+                ", hGoals='" + hGoals + '\'' +
                 ", game_link='" + game_link + '\'' +
+                ", game_info=" + game_info +
                 '}';
     }
 }
