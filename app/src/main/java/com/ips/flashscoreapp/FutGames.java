@@ -29,15 +29,7 @@ public class FutGames {
 
     @Override
     public String toString() {
-        return "FutGames{" +
-                "game_time='" + game_time + '\'' +
-                ", home_team='" + home_team + '\'' +
-                ", away_team='" + away_team + '\'' +
-                ", game_status='" + game_status + '\'' +
-                ", aGoals='" + aGoals + '\'' +
-                ", hGoals='" + hGoals + '\'' +
-                ", game_link='" + game_link + '\'' +
-                ", game_info=" + game_info +
-                '}';
+        return    game_time  + "  " + game_status +"\n "+
+                home_team  + "  " + away_team  + "  " + hGoals  + "  " + aGoals  + "\n"   ;
     }
 }

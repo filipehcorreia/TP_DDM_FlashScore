@@ -37,9 +37,6 @@ public class FutLigas {
 
     @Override
     public String toString() {
-        return "FutLigas{" +
-                "name='" + name + '\'' +
-                ", games=" + games +
-                '}';
+        return ""+games;
     }
 }

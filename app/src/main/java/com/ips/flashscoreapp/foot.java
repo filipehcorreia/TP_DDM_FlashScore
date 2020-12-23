@@ -27,7 +27,7 @@ private Menu menu;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_foot);
 
-        new DFJLHttp(this).execute("http://192.168.1.72:85/get/getFutGames.php");
+        new DFJLHttp(this).execute("http://192.168.1.12/get/getFutGames.php");
 
     }
 
