@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -14,12 +16,14 @@ public class foot extends AppCompatActivity implements DFJLHttp.AsyncResponse {
 
     public ArrayList<FutLigas> oGames= new ArrayList<FutLigas>();
 
+    private ListView gamesView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_foot);
 
-        new DFJLHttp(this).execute("http://192.168.1.72:85/get/getFutGames.php");
+        new DFJLHttp(this).execute("http://192.168.1.12/get/getFutGames.php");
 
     }
 
@@ -32,6 +36,7 @@ public class foot extends AppCompatActivity implements DFJLHttp.AsyncResponse {
 
             JSONArray js = new JSONArray(output.getJSONObject(i).getString("games"));
             Log.v("abcde",  js.toString());
+
            for(int j=0 ; j<js.length();j++) {
 
                String hTeam = String.valueOf(js.getJSONObject(j).get("home_team"));
@@ -50,7 +55,7 @@ public class foot extends AppCompatActivity implements DFJLHttp.AsyncResponse {
                    if (!arrayGamesInfoCleaned.equals("[]")) {
 
                        Log.v("tap", arrayGamesInfoCleaned);
-                       arrayGamesInfoCleaned = arrayGamesInfoCleaned.substring(1, arrayGamesInfoCleaned.length() - 1);
+                           arrayGamesInfoCleaned = arrayGamesInfoCleaned.substring(arrayGamesInfoCleaned.indexOf("[",1), arrayGamesInfoCleaned.length() - 1);
                        Log.v("tap", arrayGamesInfoCleaned);
                        JSONArray jsInfo = new JSONArray(arrayGamesInfoCleaned);
                        Log.v("tempinfo", String.valueOf(jsInfo.length()));
@@ -70,6 +75,13 @@ public class foot extends AppCompatActivity implements DFJLHttp.AsyncResponse {
            }
 
         }
+
+        gamesView = (ListView) findViewById(R.id.listGames);
+
+        ArrayAdapter<FutLigas> arrayAdapter =
+                new ArrayAdapter<FutLigas>(this,android.R.layout.simple_list_item_1, oGames);
+        // Set The Adapter
+        gamesView.setAdapter(arrayAdapter);
 
         Log.v("abcdef",  oGames.toString());
     }
