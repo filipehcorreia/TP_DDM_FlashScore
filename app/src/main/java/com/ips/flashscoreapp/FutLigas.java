@@ -1,11 +1,12 @@
 package com.ips.flashscoreapp;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class FutLigas {
+public class FutLigas implements Serializable {
 
     public String name;
-    public ArrayList games =new ArrayList();
+    public ArrayList games = new ArrayList();
 
     public FutLigas(String name) {
         this.name = name;
@@ -37,6 +38,6 @@ public class FutLigas {
 
     @Override
     public String toString() {
-        return ""+games;
+        return "" + games;
     }
 }

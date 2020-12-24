@@ -9,4 +9,5 @@
     <string name="strChip3">José Silva</string>
     <string name="strChip4">Luís Meneses</string>
     <string name="strAuthors">Feito por:</string>
+    <string name="emptyTextView">Please choose a league in the options menu</string>
 </resources>

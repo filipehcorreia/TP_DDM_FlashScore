@@ -1,6 +1,8 @@
 package com.ips.flashscoreapp;
 
-public class FutInfo {
+import java.io.Serializable;
+
+public class FutInfo implements Serializable {
 
     public String tempo;
     public String descricao;
@@ -14,10 +16,6 @@ public class FutInfo {
 
     @Override
     public String toString() {
-        return "FutInfo{" +
-                "tempo='" + tempo + '\'' +
-                ", descricao='" + descricao + '\'' +
-                ", tipo='" + tipo + '\'' +
-                '}';
+       return tempo + "'"+"     "+tipo  +"\n"+descricao ;
     }
 }

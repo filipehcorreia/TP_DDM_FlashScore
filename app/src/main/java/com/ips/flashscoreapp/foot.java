@@ -1,15 +1,24 @@
 package com.ips.flashscoreapp;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.AlarmClock;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -18,37 +27,98 @@ import java.util.ArrayList;
 
 public class foot extends AppCompatActivity implements DFJLHttp.AsyncResponse {
 
-    public ArrayList<FutLigas> oGames= new ArrayList<FutLigas>();
-private Menu menu;
+    public ArrayList<FutLigas> oGames = new ArrayList<FutLigas>();
+    private Menu menu;
     private ListView gamesView;
+    private TextView mTextView;
+    private int leagueIAmAt = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_foot);
+        mTextView = findViewById(R.id.idTextView);
+        getSupportActionBar().setTitle("Games");
 
-        new DFJLHttp(this).execute("http://192.168.1.12/get/getFutGames.php");
+
+        new DFJLHttp(this).execute("http://192.168.1.72:85/get/getFutGames.php");
+
 
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        this.menu=menu;
+        this.menu = menu;
         return super.onCreateOptionsMenu(menu);
-        
+
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        System.out.println(item.getItemId());
+        mTextView.setText("");
+        leagueIAmAt = item.getItemId();
 
         gamesView = (ListView) findViewById(R.id.listGames);
-ArrayList temp= new ArrayList();
-        temp.add(oGames.get(item.getItemId()));
+        ArrayList temp = new ArrayList();
+
+
+        for (int i = 0; i < oGames.get(item.getItemId()).games.size(); i++) {
+            temp.add(oGames.get(item.getItemId()).games.get(i));
+        }
+
         ArrayAdapter<FutLigas> arrayAdapter =
-                new ArrayAdapter<FutLigas>(this,android.R.layout.simple_list_item_1, temp);
-        // Set The Adapter
+                new ArrayAdapter<FutLigas>(this, android.R.layout.simple_list_item_1, temp);
+
         gamesView.setAdapter(arrayAdapter);
+
+        gamesView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                int gameIamAt = (int) id;
+                FutGames temp = (FutGames) oGames.get(leagueIAmAt).games.get(gameIamAt);
+                if (!(temp.game_status.equals("Scheduled") || temp.game_status.equals("Postponed"))) {
+
+                    Intent intent = new Intent(getBaseContext(), FutDetailsActivity.class);
+                    intent.putExtra("Games", temp.game_info);
+                    startActivity(intent);
+                } else {
+                    String toastStr = "";
+                    if (temp.game_status.equals("Scheduled")) {
+                        toastStr = "Game has not started yet \n It will start at " + temp.game_time;
+
+                        Intent intentAlarm = new Intent(AlarmClock.ACTION_SET_ALARM);
+                        intentAlarm.putExtra(AlarmClock.EXTRA_HOUR, Integer.parseInt(temp.game_time.substring(0, 2)));
+                        intentAlarm.putExtra(AlarmClock.EXTRA_MINUTES, Integer.parseInt(temp.game_time.substring(3, 5)));
+                        intentAlarm.putExtra(AlarmClock.EXTRA_MESSAGE, temp.home_team + " - " + temp.away_team);
+                        startActivity(intentAlarm);
+
+
+                    } else if (temp.game_status.equals("Postponed")) {
+                        toastStr = "Game will not started today \n It was postponed";
+                    }
+
+                    Toast toast = Toast.makeText(getApplicationContext(), toastStr, Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+            }
+        });
+
+        gamesView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                int gameIamAt = (int) id;
+                FutGames temp = (FutGames) oGames.get(leagueIAmAt).games.get(gameIamAt);
+
+
+                String url = "http://www.flashscore.mobi" + temp.game_link;
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
+                return false;
+            }
+        });
 
 
         return super.onOptionsItemSelected(item);
@@ -58,56 +128,57 @@ ArrayList temp= new ArrayList();
     @Override
     public void processFinish(JSONArray output) throws JSONException {
 
-        for(int i=0 ; i<output.length();i++) {
-            FutLigas tempLigas= new FutLigas( output.getJSONObject(i).getString("name"));
+        for (int i = 0; i < output.length(); i++) {
+            FutLigas tempLigas = new FutLigas(output.getJSONObject(i).getString("name"));
             oGames.add(tempLigas);
 
-            menu.add(Menu.NONE,i,Menu.NONE,tempLigas.name);
+            menu.add(Menu.NONE, i, Menu.NONE, tempLigas.name);
 
             JSONArray js = new JSONArray(output.getJSONObject(i).getString("games"));
-            Log.v("abcde",  js.toString());
-
-           for(int j=0 ; j<js.length();j++) {
-
-               String hTeam = String.valueOf(js.getJSONObject(j).get("home_team"));
-               String aTeam = String.valueOf(js.getJSONObject(j).get("away_team"));
-               String aGoals = String.valueOf(js.getJSONObject(j).get("aGoals"));
-               String hGoals = String.valueOf(js.getJSONObject(j).get("hGoals"));
-               String gameTime = String.valueOf(js.getJSONObject(j).get("game_time"));
-               String gameLink = String.valueOf(js.getJSONObject(j).get("game_link"));
-               String gameStatus = String.valueOf(js.getJSONObject(j).get("game_status"));
-
-               FutGames tempGame = new FutGames(gameTime,hTeam,aTeam,gameStatus,aGoals,hGoals,gameLink);
 
 
-               String arrayGamesInfoCleaned = String.valueOf(js.getJSONObject(j).get("game_info"));
-               if (!arrayGamesInfoCleaned.equals("null")){
-                   if (!arrayGamesInfoCleaned.equals("[]")) {
+            for (int j = 0; j < js.length(); j++) {
 
-                       Log.v("tap", arrayGamesInfoCleaned);
-                           arrayGamesInfoCleaned = arrayGamesInfoCleaned.substring(arrayGamesInfoCleaned.indexOf("[",1), arrayGamesInfoCleaned.length() - 1);
-                       Log.v("tap", arrayGamesInfoCleaned);
-                       JSONArray jsInfo = new JSONArray(arrayGamesInfoCleaned);
-                       Log.v("tempinfo", String.valueOf(jsInfo.length()));
-                       for (int k = 0; k < jsInfo.length(); k++) {
-                           String time = String.valueOf(jsInfo.getJSONObject(k).get("tempo"));
-                           String description = String.valueOf(jsInfo.getJSONObject(k).get("descricao"));
-                           String type = String.valueOf(jsInfo.getJSONObject(k).get("tipo"));
+                String hTeam = String.valueOf(js.getJSONObject(j).get("home_team"));
+                String aTeam = String.valueOf(js.getJSONObject(j).get("away_team"));
+                String aGoals = String.valueOf(js.getJSONObject(j).get("aGoals"));
+                String hGoals = String.valueOf(js.getJSONObject(j).get("hGoals"));
+                String gameTime = String.valueOf(js.getJSONObject(j).get("game_time"));
+                String gameLink = String.valueOf(js.getJSONObject(j).get("game_link"));
+                String gameStatus = String.valueOf(js.getJSONObject(j).get("game_status"));
 
-                           FutInfo tempInfo = new FutInfo(time, description, type);
-                           Log.v("tempinfo", tempInfo.toString());
-                           tempGame.game_info.add(tempInfo);
-                       }
-                   }
+                FutGames tempGame = new FutGames(gameTime, hTeam, aTeam, gameStatus, aGoals, hGoals, gameLink);
 
+
+                String arrayGamesInfoCleaned = String.valueOf(js.getJSONObject(j).get("game_info"));
+                if (!arrayGamesInfoCleaned.equals("null")) {
+                    if (!arrayGamesInfoCleaned.equals("[]")) {
+
+
+                        arrayGamesInfoCleaned = arrayGamesInfoCleaned.substring(arrayGamesInfoCleaned.indexOf("[", 1), arrayGamesInfoCleaned.length() - 1);
+                        arrayGamesInfoCleaned = arrayGamesInfoCleaned.replace("[", "");
+                        arrayGamesInfoCleaned = arrayGamesInfoCleaned.replace("]", "");
+                        arrayGamesInfoCleaned = "[" + arrayGamesInfoCleaned + "]";
+
+
+                        JSONArray jsInfo = new JSONArray(arrayGamesInfoCleaned);
+                        for (int k = 0; k < jsInfo.length(); k++) {
+                            String time = String.valueOf(jsInfo.getJSONObject(k).get("tempo"));
+                            String description = String.valueOf(jsInfo.getJSONObject(k).get("descricao"));
+                            String type = String.valueOf(jsInfo.getJSONObject(k).get("tipo"));
+
+
+                            FutInfo tempInfo = new FutInfo(time, description, type);
+                            tempGame.game_info.add(tempInfo);
+                        }
+                    }
+
+                }
+                oGames.get(i).games.add(tempGame);
             }
-               oGames.get(i).games.add(tempGame);
-           }
 
         }
 
 
-
-        Log.v("abcdef",  oGames.toString());
     }
 }

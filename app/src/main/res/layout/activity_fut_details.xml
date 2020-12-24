@@ -4,23 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".foot">
-
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/idTextView"
-        android:text="@string/emptyTextView"
-        android:gravity="center">
-
-    </TextView>
+    tools:context=".FutDetailsActivity">
 
 
     <ListView
-        android:id="@+id/listGames"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        />
+        android:id="@+id/idFutDetailsListView">
+
+    </ListView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
