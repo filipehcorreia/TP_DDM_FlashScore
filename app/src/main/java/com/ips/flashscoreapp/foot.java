@@ -42,7 +42,7 @@ public class foot extends AppCompatActivity implements DFJLHttp.AsyncResponse {
         getSupportActionBar().setTitle("Games");
 
 
-        new DFJLHttp(this).execute("http://192.168.1.72:85/get/getFutGames.php");
+        new DFJLHttp(this).execute("http://192.168.54.118/get/getFutGames.php");
 
 
     }

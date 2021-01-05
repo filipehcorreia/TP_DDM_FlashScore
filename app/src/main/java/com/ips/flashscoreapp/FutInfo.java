@@ -9,9 +9,10 @@ public class FutInfo implements Serializable {
     public String tipo;
 
     public FutInfo(String tempo, String descricao, String tipo) {
-        this.tempo = tempo;
+        this.tempo=tempo;
         this.descricao = descricao;
         this.tipo = tipo;
+
     }
 
     @Override
