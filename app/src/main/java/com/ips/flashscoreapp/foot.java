@@ -112,14 +112,13 @@ public class foot extends AppCompatActivity implements DFJLHttp.AsyncResponse {
                 FutGames temp = (FutGames) oGames.get(leagueIAmAt).games.get(gameIamAt);
 
 
-                String url = "http://www.flashscore.mobi" + temp.game_link;
+                String url = "http://www.flashscore.mobi" + temp.game_lineup;
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 startActivity(i);
                 return false;
             }
         });
-
 
         return super.onOptionsItemSelected(item);
 
@@ -146,8 +145,9 @@ public class foot extends AppCompatActivity implements DFJLHttp.AsyncResponse {
                 String gameTime = String.valueOf(js.getJSONObject(j).get("game_time"));
                 String gameLink = String.valueOf(js.getJSONObject(j).get("game_link"));
                 String gameStatus = String.valueOf(js.getJSONObject(j).get("game_status"));
+                String gameLineup = String.valueOf(js.getJSONObject(j).get("game_lineup"));
 
-                FutGames tempGame = new FutGames(gameTime, hTeam, aTeam, gameStatus, aGoals, hGoals, gameLink);
+                FutGames tempGame = new FutGames(gameTime, hTeam, aTeam, gameStatus, aGoals, hGoals, gameLink,gameLineup);
 
 
                 String arrayGamesInfoCleaned = String.valueOf(js.getJSONObject(j).get("game_info"));

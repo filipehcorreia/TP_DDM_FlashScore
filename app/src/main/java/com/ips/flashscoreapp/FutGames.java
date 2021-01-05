@@ -12,13 +12,14 @@ public class FutGames implements Serializable {
     public String aGoals;
     public String hGoals;
     public String game_link;
+    public String game_lineup;
     public ArrayList<FutInfo> game_info =new ArrayList<FutInfo>();
 
     public void setGame_info(FutInfo gameI) {
         game_info.add(gameI);
     }
 
-    public FutGames(String game_time, String home_team, String away_team, String game_status, String aGoals, String hGoals, String game_link) {
+    public FutGames(String game_time, String home_team, String away_team, String game_status, String aGoals, String hGoals, String game_link,String game_lineup) {
         this.game_time = game_time;
         this.home_team = home_team;
         this.away_team = away_team;
@@ -26,6 +27,7 @@ public class FutGames implements Serializable {
         this.aGoals = aGoals;
         this.hGoals = hGoals;
         this.game_link = game_link;
+        this.game_lineup=game_lineup;
     }
 
     @Override
