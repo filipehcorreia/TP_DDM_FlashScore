@@ -51,7 +51,7 @@ public class FutDetailsActivity extends AppCompatActivity {
                 temp=temp.substring(0,temp.indexOf("'"));
             }
             if(Integer.parseInt(temp)>45){
-                gamesaqui.add(i,"2st");
+                gamesaqui.add(i,"2st Part");
 
                 return "";
             }
@@ -60,7 +60,7 @@ public class FutDetailsActivity extends AppCompatActivity {
     }
 
     void addPart1(){
-        gamesaqui.add(0,"1st");
+        gamesaqui.add(0,"1st Part");
     }
 
 }
