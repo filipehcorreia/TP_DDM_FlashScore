@@ -3,7 +3,7 @@ package com.ips.flashscoreapp;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class FutGames implements Serializable {
+public class Games implements Serializable {
 
     public String game_time;
     public String home_team;
@@ -12,14 +12,14 @@ public class FutGames implements Serializable {
     public String aGoals;
     public String hGoals;
     public String game_link;
-    public String game_lineup;
-    public ArrayList<FutInfo> game_info =new ArrayList<FutInfo>();
+    public String game_lineup="";
+    public ArrayList<Object> game_info =new ArrayList<Object>();
 
-    public void setGame_info(FutInfo gameI) {
+    public void setGame_info(Object gameI) {
         game_info.add(gameI);
     }
 
-    public FutGames(String game_time, String home_team, String away_team, String game_status, String aGoals, String hGoals, String game_link,String game_lineup) {
+    public Games(String game_time, String home_team, String away_team, String game_status, String aGoals, String hGoals, String game_link, String game_lineup) {
         this.game_time = game_time;
         this.home_team = home_team;
         this.away_team = away_team;
@@ -27,7 +27,7 @@ public class FutGames implements Serializable {
         this.aGoals = aGoals;
         this.hGoals = hGoals;
         this.game_link = game_link;
-        this.game_lineup=game_lineup;
+        this.game_lineup= game_lineup;
     }
 
     @Override

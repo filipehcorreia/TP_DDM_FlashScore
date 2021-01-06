@@ -14,6 +14,7 @@
         android:theme="@style/Theme.FlashScoreApp"
         android:usesCleartextTraffic="true">
         <activity android:name=".FutDetailsActivity"></activity>
+        <activity android:name=".BaskDetailsActivity"></activity>
         <activity android:name=".basket" />
         <activity android:name=".foot" />
         <activity android:name=".MainActivity">

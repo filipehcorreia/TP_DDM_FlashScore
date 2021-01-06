@@ -1,13 +1,9 @@
 package com.ips.flashscoreapp;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.AlarmClock;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,7 +23,7 @@ import java.util.ArrayList;
 
 public class foot extends AppCompatActivity implements DFJLHttp.AsyncResponse {
 
-    public ArrayList<FutLigas> oGames = new ArrayList<FutLigas>();
+    public ArrayList<Ligas> oGames = new ArrayList<Ligas>();
     private Menu menu;
     private ListView gamesView;
     private TextView mTextView;
@@ -67,8 +63,8 @@ public class foot extends AppCompatActivity implements DFJLHttp.AsyncResponse {
             temp.add(oGames.get(item.getItemId()).games.get(i));
         }
 
-        ArrayAdapter<FutLigas> arrayAdapter =
-                new ArrayAdapter<FutLigas>(this, android.R.layout.simple_list_item_1, temp);
+        ArrayAdapter<Ligas> arrayAdapter =
+                new ArrayAdapter<Ligas>(this, android.R.layout.simple_list_item_1, temp);
 
         gamesView.setAdapter(arrayAdapter);
 
@@ -77,7 +73,7 @@ public class foot extends AppCompatActivity implements DFJLHttp.AsyncResponse {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 int gameIamAt = (int) id;
-                FutGames temp = (FutGames) oGames.get(leagueIAmAt).games.get(gameIamAt);
+                Games temp = (Games) oGames.get(leagueIAmAt).games.get(gameIamAt);
                 if (!(temp.game_status.equals("Scheduled") || temp.game_status.equals("Postponed"))) {
 
                     Intent intent = new Intent(getBaseContext(), FutDetailsActivity.class);
@@ -109,13 +105,21 @@ public class foot extends AppCompatActivity implements DFJLHttp.AsyncResponse {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 int gameIamAt = (int) id;
-                FutGames temp = (FutGames) oGames.get(leagueIAmAt).games.get(gameIamAt);
 
+                Games temp = (Games) oGames.get(leagueIAmAt).games.get(gameIamAt);
 
-                String url = "http://www.flashscore.mobi" + temp.game_lineup;
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(url));
-                startActivity(i);
+                if (!temp.game_lineup.equals("")) {
+                    String url = "http://www.flashscore.mobi" + temp.game_lineup;
+
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(url));
+                    startActivity(i);
+                }else {
+                    String toastStr = "Game doesn't have a Lineup ";
+
+                    Toast toast = Toast.makeText(getApplicationContext(), toastStr, Toast.LENGTH_SHORT);
+                    toast.show();
+                }
                 return false;
             }
         });
@@ -128,13 +132,12 @@ public class foot extends AppCompatActivity implements DFJLHttp.AsyncResponse {
     public void processFinish(JSONArray output) throws JSONException {
 
         for (int i = 0; i < output.length(); i++) {
-            FutLigas tempLigas = new FutLigas(output.getJSONObject(i).getString("name"));
+            Ligas tempLigas = new Ligas(output.getJSONObject(i).getString("name"));
             oGames.add(tempLigas);
 
             menu.add(Menu.NONE, i, Menu.NONE, tempLigas.name);
 
             JSONArray js = new JSONArray(output.getJSONObject(i).getString("games"));
-
 
             for (int j = 0; j < js.length(); j++) {
 
@@ -147,7 +150,7 @@ public class foot extends AppCompatActivity implements DFJLHttp.AsyncResponse {
                 String gameStatus = String.valueOf(js.getJSONObject(j).get("game_status"));
                 String gameLineup = String.valueOf(js.getJSONObject(j).get("game_lineup"));
 
-                FutGames tempGame = new FutGames(gameTime, hTeam, aTeam, gameStatus, aGoals, hGoals, gameLink,gameLineup);
+                Games tempGame = new Games(gameTime, hTeam, aTeam, gameStatus, aGoals, hGoals, gameLink,gameLineup);
 
 
                 String arrayGamesInfoCleaned = String.valueOf(js.getJSONObject(j).get("game_info"));

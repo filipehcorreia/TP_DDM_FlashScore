@@ -4,22 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".basket">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/idTextView"
-        android:text="@string/emptyTextView"
-        android:gravity="center">
-
-    </TextView>
+    tools:context=".BaskDetailsActivity">
 
 
     <ListView
-        android:id="@+id/listGames"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        />
+        android:id="@+id/idBaskDetailsListView">
+    </ListView>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,14 +2,11 @@ package com.ips.flashscoreapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class FutDetailsActivity extends AppCompatActivity {
 
@@ -35,7 +32,7 @@ public class FutDetailsActivity extends AppCompatActivity {
         mListView = findViewById(R.id.idFutDetailsListView);
 
 
-        ArrayAdapter<FutLigas> arrayAdapter =
+        ArrayAdapter<Ligas> arrayAdapter =
                 new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, gamesaqui);
 
         mListView.setAdapter(arrayAdapter);
