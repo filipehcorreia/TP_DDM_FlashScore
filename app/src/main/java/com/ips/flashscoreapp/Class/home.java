@@ -1,4 +1,4 @@
-package com.ips.flashscoreapp;
+package com.ips.flashscoreapp.Class;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,17 +7,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.chip.Chip;
+import com.ips.flashscoreapp.R;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -80,12 +75,12 @@ public class home extends Fragment {
             int id = v.getId();
             switch(id){
                 case R.id.idFirstCard:
-                    Intent ft = new Intent(getActivity(),foot.class);
+                    Intent ft = new Intent(getActivity(), foot.class);
                     startActivity(ft);
 
                     break;
                 case R.id.idSecondCard:
-                    Intent bt = new Intent(getActivity(),basket.class);
+                    Intent bt = new Intent(getActivity(), basket.class);
                     startActivity(bt);
                     break;
 

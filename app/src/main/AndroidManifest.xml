@@ -13,11 +13,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FlashScoreApp"
         android:usesCleartextTraffic="true">
-        <activity android:name=".FutDetailsActivity"></activity>
-        <activity android:name=".BaskDetailsActivity"></activity>
-        <activity android:name=".basket" />
-        <activity android:name=".foot" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".Activities.FutDetailsActivity"></activity>
+        <activity android:name=".Activities.BaskDetailsActivity"></activity>
+        <activity android:name=".Class.basket" />
+        <activity android:name=".Class.foot" />
+        <activity android:name=".Activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

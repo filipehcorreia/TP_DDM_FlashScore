@@ -1,6 +1,5 @@
-package com.ips.flashscoreapp;
+package com.ips.flashscoreapp.Class;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -11,9 +10,9 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.google.android.material.chip.Chip;
+import com.ips.flashscoreapp.R;
 
 /**
  * A simple {@link Fragment} subclass.

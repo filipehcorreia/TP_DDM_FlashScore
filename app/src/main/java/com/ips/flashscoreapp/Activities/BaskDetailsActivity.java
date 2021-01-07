@@ -1,10 +1,13 @@
-package com.ips.flashscoreapp;
+package com.ips.flashscoreapp.Activities;
 
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.ips.flashscoreapp.DataTypes.Ligas;
+import com.ips.flashscoreapp.R;
 
 import java.util.ArrayList;
 

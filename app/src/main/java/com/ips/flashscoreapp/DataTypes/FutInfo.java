@@ -1,4 +1,4 @@
-package com.ips.flashscoreapp;
+package com.ips.flashscoreapp.DataTypes;
 
 import java.io.Serializable;
 

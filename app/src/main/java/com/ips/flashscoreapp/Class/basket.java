@@ -1,4 +1,4 @@
-package com.ips.flashscoreapp;
+package com.ips.flashscoreapp.Class;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +16,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.ips.flashscoreapp.Activities.BaskDetailsActivity;
+import com.ips.flashscoreapp.DataTypes.BaskInfo;
+import com.ips.flashscoreapp.DataTypes.Games;
+import com.ips.flashscoreapp.DataTypes.Ligas;
+import com.ips.flashscoreapp.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;

@@ -1,4 +1,4 @@
-package com.ips.flashscoreapp;
+package com.ips.flashscoreapp.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -6,15 +6,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.ips.flashscoreapp.R;
+import com.ips.flashscoreapp.Class.home;
+import com.ips.flashscoreapp.Class.info;
 
 public class MainActivity extends AppCompatActivity {
     private ActionBar toolbar;

@@ -1,4 +1,6 @@
-package com.ips.flashscoreapp;
+package com.ips.flashscoreapp.DataTypes;
+
+import com.ips.flashscoreapp.DataTypes.Games;
 
 import java.io.Serializable;
 import java.util.ArrayList;

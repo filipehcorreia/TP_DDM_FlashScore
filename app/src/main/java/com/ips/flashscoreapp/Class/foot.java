@@ -1,4 +1,4 @@
-package com.ips.flashscoreapp;
+package com.ips.flashscoreapp.Class;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -15,6 +15,13 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.ips.flashscoreapp.Activities.FutDetailsActivity;
+import com.ips.flashscoreapp.Class.DFJLHttp;
+import com.ips.flashscoreapp.DataTypes.FutInfo;
+import com.ips.flashscoreapp.DataTypes.Games;
+import com.ips.flashscoreapp.DataTypes.Ligas;
+import com.ips.flashscoreapp.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;

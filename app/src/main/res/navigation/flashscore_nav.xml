@@ -7,12 +7,12 @@
 
     <fragment
         android:id="@+id/home2"
-        android:name="com.ips.flashscoreapp.home"
+        android:name="com.ips.flashscoreapp.Class.home"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/info2"
-        android:name="com.ips.flashscoreapp.info"
+        android:name="com.ips.flashscoreapp.Class.info"
         android:label="fragment_info"
         tools:layout="@layout/fragment_info" />
 </navigation>
