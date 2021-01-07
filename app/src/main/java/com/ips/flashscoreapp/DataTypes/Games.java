@@ -30,6 +30,7 @@ public class Games implements Serializable {
         this.game_lineup= game_lineup;
     }
 
+    //toString made to look better in the listView
     @Override
     public String toString() {
         return    game_time   +"  " + game_status +"\n "+

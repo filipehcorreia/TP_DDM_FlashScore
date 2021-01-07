@@ -12,9 +12,8 @@ public class FutInfo implements Serializable {
         this.tempo=tempo;
         this.descricao = descricao;
         this.tipo = tipo;
-
     }
-
+    //toString made to look better in the listView
     @Override
     public String toString() {
        return tempo + "'"+"     "+tipo  +"\n"+descricao ;

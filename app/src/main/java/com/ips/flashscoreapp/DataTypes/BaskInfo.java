@@ -11,7 +11,7 @@ public class BaskInfo implements Serializable {
         this.quarter = quarter;
         this.score = score;
     }
-
+    //toString made to look better in the listView
     @Override
     public String toString() {
        return quarter + "  "+ score;

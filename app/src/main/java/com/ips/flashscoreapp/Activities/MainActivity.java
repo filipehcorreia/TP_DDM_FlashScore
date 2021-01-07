@@ -22,24 +22,28 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        //it creates the bottom toolbar
         toolbar = getSupportActionBar();
         toolbar.setTitle("Inicío");
-
+        //add navigation to the bottom of the screen
         AddBottomNavigation();
-    }
+    }//onCreate
 
     private void AddBottomNavigation() {
+
         FragmentManager fragmentManager = getSupportFragmentManager();
         final Fragment[] fragment = {new home()};
-        FragmentTransaction transaction =
-                fragmentManager.beginTransaction();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.add(R.id.fragment, fragment[0]).commit();
+        //get resources of the bottom navigation
         BottomNavigationView bottomNavigationView = (BottomNavigationView)
                 findViewById(R.id.idBottomNav);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+            //create the bottom options
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                //changes the tittle of the screen,and calls the new fragment
                 switch (item.getItemId()) {
                     case R.id.home2:
                         toolbar.setTitle("Inicío");
@@ -53,13 +57,8 @@ public class MainActivity extends AppCompatActivity {
                 final FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction.replace(R.id.fragment, fragment[0]).commit();
                 return true;
-            }
+            }//onNavigationItemSelected
         });
-    }
-
-
-    void init() {
-
-    }
+    }//AddBottomNavigation
 
 }

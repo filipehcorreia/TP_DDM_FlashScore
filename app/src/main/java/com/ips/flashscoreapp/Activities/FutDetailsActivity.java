@@ -20,10 +20,13 @@ public class FutDetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //changes the layout
         setContentView(R.layout.activity_fut_details);
+        //changes the tittle of the screen
         getSupportActionBar().setTitle("Details");
         gamesaqui = new ArrayList<>();
         gamesaqui = (ArrayList) getIntent().getSerializableExtra("Games");
+
 
         addPart2();
         addPart1();
@@ -32,9 +35,10 @@ public class FutDetailsActivity extends AppCompatActivity {
     }
 
     void init() {
+        //get the view
         mListView = findViewById(R.id.idFutDetailsListView);
 
-
+        //create the navigation to the next screen
         ArrayAdapter<Ligas> arrayAdapter =
                 new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, gamesaqui);
 
@@ -42,6 +46,7 @@ public class FutDetailsActivity extends AppCompatActivity {
 
     }
 
+    //add the string "2stPart" in the middle
     String addPart2(){
         for(int i=0;i<gamesaqui.size();i++){
             temp=gamesaqui.get(i).toString();
@@ -58,7 +63,7 @@ public class FutDetailsActivity extends AppCompatActivity {
         }
         return "";
     }
-
+    //add the string "1stPart" in the beginning
     void addPart1(){
         gamesaqui.add(0,"1st Part");
     }

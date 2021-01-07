@@ -37,7 +37,7 @@ public class Ligas implements Serializable {
 
         System.out.println(games);
     }
-
+    //toString made to look better in the listView
     @Override
     public String toString() {
         return "" + games;

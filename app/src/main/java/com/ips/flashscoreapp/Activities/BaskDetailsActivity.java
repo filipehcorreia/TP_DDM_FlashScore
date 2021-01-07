@@ -20,7 +20,9 @@ public class BaskDetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //changes the layout
         setContentView(R.layout.activity_bask_details);
+        //changes the tittle of the screen
         getSupportActionBar().setTitle("Details");
         gamesaqui = new ArrayList<>();
         gamesaqui = (ArrayList) getIntent().getSerializableExtra("Games");
@@ -30,9 +32,11 @@ public class BaskDetailsActivity extends AppCompatActivity {
     }
 
     void init() {
+        //get the view
+
         mListView = findViewById(R.id.idBaskDetailsListView);
 
-
+        //create the navigation to the next screen
         ArrayAdapter<Ligas> arrayAdapter =
                 new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, gamesaqui);
 

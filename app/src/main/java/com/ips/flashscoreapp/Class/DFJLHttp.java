@@ -22,14 +22,13 @@ public class DFJLHttp extends AsyncTask<String, Void, JSONArray> {
 
     }
 
-
     public AsyncResponse delegate = null;
-
 
     public DFJLHttp(AsyncResponse delegate) {
         this.delegate = delegate;
     }
 
+    //handles the response from the async task
     @Override
     public void onPostExecute(JSONArray jsonArray) {
         try {
@@ -39,6 +38,7 @@ public class DFJLHttp extends AsyncTask<String, Void, JSONArray> {
         }
     }
 
+    //async task main code
     @Override
     public JSONArray doInBackground(String... strings) {
         URL url = null;
@@ -49,10 +49,12 @@ public class DFJLHttp extends AsyncTask<String, Void, JSONArray> {
         }
         HttpURLConnection urlConnection = null;
         try {
+            //try to get a conection to the URL
             urlConnection = (HttpURLConnection) url.openConnection();
         } catch (IOException e) {
             e.printStackTrace();
         }
+             //handles the html response
         try {
             InputStream in = new BufferedInputStream(urlConnection.getInputStream());
 
@@ -62,8 +64,8 @@ public class DFJLHttp extends AsyncTask<String, Void, JSONArray> {
             while ((line = reader.readLine()) != null) {
                 result.append(line);
             }
-            System.out.println(result.toString());
 
+            //convert json into a java object
             JSONArray jsonArray = new JSONArray(result.toString());
 
             return jsonArray;
