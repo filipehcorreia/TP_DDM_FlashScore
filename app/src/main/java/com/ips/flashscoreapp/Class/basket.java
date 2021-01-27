@@ -47,7 +47,7 @@ public class basket extends AppCompatActivity implements DFJLHttp.AsyncResponse 
         getSupportActionBar().setTitle("Games");
 
         //gets the json file
-        new DFJLHttp(this).execute("http://192.168.54.118/get/getBasketGames.php");
+        new DFJLHttp(this).execute("Put your URL from json response here");   //example http://192.168.1.72/get/getBasketGames.php
 
     }
 
@@ -141,52 +141,55 @@ public class basket extends AppCompatActivity implements DFJLHttp.AsyncResponse 
 
     @Override
     public void processFinish(JSONArray output) throws JSONException {
-        //parse the json array to game object
-        for (int i = 0; i < output.length(); i++) {
-            Ligas tempLigas = new Ligas(output.getJSONObject(i).getString("name"));
-            oGames.add(tempLigas);
+        try {
+            //parse the json array to game object
+            for (int i = 0; i < output.length(); i++) {
+                Ligas tempLigas = new Ligas(output.getJSONObject(i).getString("name"));
+                oGames.add(tempLigas);
 
-            menu.add(Menu.NONE, i, Menu.NONE, tempLigas.name);
+                menu.add(Menu.NONE, i, Menu.NONE, tempLigas.name);
 
-            JSONArray js = new JSONArray(output.getJSONObject(i).getString("games"));
-            //get detailed info from the json object
-            for (int j = 0; j < js.length(); j++) {
+                JSONArray js = new JSONArray(output.getJSONObject(i).getString("games"));
+                //get detailed info from the json object
+                for (int j = 0; j < js.length(); j++) {
 
-                String hTeam = String.valueOf(js.getJSONObject(j).get("home_team"));
-                String aTeam = String.valueOf(js.getJSONObject(j).get("away_team"));
-                String aGoals = String.valueOf(js.getJSONObject(j).get("aGoals"));
-                String hGoals = String.valueOf(js.getJSONObject(j).get("hGoals"));
-                String gameTime = String.valueOf(js.getJSONObject(j).get("game_time"));
-                String gameLink = String.valueOf(js.getJSONObject(j).get("game_link"));
-                String gameStatus = String.valueOf(js.getJSONObject(j).get("game_status"));
-                String gameLineup = String.valueOf(js.getJSONObject(j).get("game_lineup"));
+                    String hTeam = String.valueOf(js.getJSONObject(j).get("home_team"));
+                    String aTeam = String.valueOf(js.getJSONObject(j).get("away_team"));
+                    String aGoals = String.valueOf(js.getJSONObject(j).get("aGoals"));
+                    String hGoals = String.valueOf(js.getJSONObject(j).get("hGoals"));
+                    String gameTime = String.valueOf(js.getJSONObject(j).get("game_time"));
+                    String gameLink = String.valueOf(js.getJSONObject(j).get("game_link"));
+                    String gameStatus = String.valueOf(js.getJSONObject(j).get("game_status"));
+                    String gameLineup = String.valueOf(js.getJSONObject(j).get("game_lineup"));
 
-                Games tempGame = new Games(gameTime, hTeam, aTeam, gameStatus, aGoals, hGoals, gameLink,gameLineup);
+                    Games tempGame = new Games(gameTime, hTeam, aTeam, gameStatus, aGoals, hGoals, gameLink, gameLineup);
 
 
-                String arrayGamesInfoCleaned = String.valueOf(js.getJSONObject(j).get("game_info"));
-                if (!arrayGamesInfoCleaned.equals("null")) {
-                    if (!arrayGamesInfoCleaned.equals("[]")) {
+                    String arrayGamesInfoCleaned = String.valueOf(js.getJSONObject(j).get("game_info"));
+                    if (!arrayGamesInfoCleaned.equals("null")) {
+                        if (!arrayGamesInfoCleaned.equals("[]")) {
 
-                        //get detailed info from the json object
+                            //get detailed info from the json object
 
-                        JSONArray jsInfo = new JSONArray(arrayGamesInfoCleaned);
-                        for (int k = 0; k < jsInfo.length(); k++) {
-                            String quarter = String.valueOf(jsInfo.getJSONObject(k).get("part"));
-                            String score = String.valueOf(jsInfo.getJSONObject(k).get("score"));
+                            JSONArray jsInfo = new JSONArray(arrayGamesInfoCleaned);
+                            for (int k = 0; k < jsInfo.length(); k++) {
+                                String quarter = String.valueOf(jsInfo.getJSONObject(k).get("part"));
+                                String score = String.valueOf(jsInfo.getJSONObject(k).get("score"));
 
-                            BaskInfo tempInfo = new BaskInfo(quarter,score);
-                            tempGame.game_info.add(tempInfo);
+                                BaskInfo tempInfo = new BaskInfo(quarter, score);
+                                tempGame.game_info.add(tempInfo);
+                            }
                         }
+
                     }
-
+                    //add info to corresponding game
+                    oGames.get(i).games.add(tempGame);
                 }
-                //add info to corresponding game
-                oGames.get(i).games.add(tempGame);
+
             }
-
+        }catch (Exception e){
+            mTextView.setText("Error from DB");
         }
-
 
     }
 }

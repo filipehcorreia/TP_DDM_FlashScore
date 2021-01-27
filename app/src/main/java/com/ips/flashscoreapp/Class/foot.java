@@ -45,7 +45,7 @@ public class foot extends AppCompatActivity implements DFJLHttp.AsyncResponse {
         getSupportActionBar().setTitle("Games");
 
         //gets the json file
-        new DFJLHttp(this).execute("http://192.168.54.118/get/getFutGames.php");
+        new DFJLHttp(this).execute("Put your URL from json response here");   //example http://192.168.1.72/get/getFutGames.php
 
     }
 
@@ -140,6 +140,9 @@ public class foot extends AppCompatActivity implements DFJLHttp.AsyncResponse {
 
     @Override
     public void processFinish(JSONArray output) throws JSONException {
+
+        try{
+
         //parse the json array to game object
         for (int i = 0; i < output.length(); i++) {
             Ligas tempLigas = new Ligas(output.getJSONObject(i).getString("name"));
@@ -192,6 +195,10 @@ public class foot extends AppCompatActivity implements DFJLHttp.AsyncResponse {
                 oGames.get(i).games.add(tempGame);
             }
 
+        }
+
+        }catch (Exception e){
+            mTextView.setText("Error from DB");
         }
 
 
